@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container mt-6 main">
+        <div id="particles-js"></div>
+        <div class="columns is-centered is-vcentered is-mobile">
+            <div class="column is-narrow has-text-centered">
+                <h1 class="subtitle is-size-5-mobile is-size-1 position-zindex">Algoritmo RSA</h1>
+            </div>
+        </div>
+        <div class="columns is-centered is-vcentered is-mobile">
+            <div class="column is-narrow has-text-centered">
+                <h1 class="subtitle is-size-5-mobile is-size-3 position-zindex">Seguridad en nuevas técnologias</h1>
+            </div>
+        </div>
+        <div class="columns is-centered is-vcentered is-mobile">
+            <div class="column is-narrow has-text-centered">
+                <h1 class="subtitle is-7 position-zindex">Por:</h1>
+            </div>
+        </div>
+        <div class="columns is-centered is-vcentered is-mobile">
+            <div class="column is-narrow has-text-centered">
+                <div class="custom-text">
+                    <ul>
+                        <li class="is-size-3 position-zindex">Sergio Viasus</li>
+                        <li class="is-size-3 position-zindex"><a href="https://github.com/jodavelo">José Daniel Vergara Lozano</a> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="columns is-mobile">
+            <div class="column is-half is-offset-one-quarter">
+                <div class="field position-zindex">
+                    <label class="label">Numero 1</label>
+                    <div class="control">
+                        <input id="number1" class="input is-info" type="text" placeholder="Ejemplo: 19" onkeypress="return onlyNumberKey(event)">
+                    </div>
+                    <p class="help">Numero primo</p>
+                </div>
+            </div>
+        </div>
+        <div class="columns is-mobile">
+            <div class="column is-half is-offset-one-quarter">
+                <div class="field position-zindex">
+                    <label class="label">Numero 2</label>
+                    <div class="control">
+                        <input id="number2" class="input is-info" type="text" placeholder="Ejemplo: 23" onkeypress="return onlyNumberKey(event)">
+                    </div>
+                    <p class="help">Numero primo</p>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="columns is-centered is-vcentered is-mobile"> -->
+        <div id="btn_calculate_n_phi_n" class="columns show">
+            <div class="column is-half is-offset-one-quarter">
+                <button type="submit" class="button is-info is-fullwidth" onclick="calculateNFiN();">
+                    <!-- <span class="icon"><i class="fa fa-sign-in"></i></span> -->
+                    <span>Calcular n y fi(n)</span>
+                </button>
+            </div>
+        </div>
+        <div id="container_select" class="columns hide">
+            <div class="column is-half is-offset-one-quarter">
+                <div class="select is-link is-fullwidth">
+                    <select id="select_possible_e">
+                        <!-- <option>Select dropdown</option>
+                        <option>With options</option> -->
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="table1" class="columns position-zindex hide">
+            <div class="column is-half is-offset-one-quarter">
+                <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>k</th>
+                            <th>e</th>
+                            <th>(k * &empty;(n) + 1) % e</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody_table">                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="step_list" class="columns position-zindex hide">
+            <div class="column is-half is-offset-one-quarter">
+                <div id="k_explication">
+                    <ul id="step_by_step_of_k" style="font-style: italic;">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="details_d" class="columns position-zindex hide">
+            <div class="column is-half is-offset-one-quarter">
+                <div id="d_explication">
+                    <h1 class="subtitle is-size-5-mobile is-size-5 position-zindex">Calculo del d</h1>
+                    <ul id="step_by_step_of_d" style="font-style: italic;">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="public_key_container" class="columns position-zindex hide">
+            <div class="column is-half is-offset-one-quarter">
+                <h1 id="public_key_text" class="subtitle is-size-5-mobile is-size-4 position-zindex"></h1>
+            </div>
+        </div>
+        <div id="private_key_container" class="columns position-zindex hide">
+            <div class="column is-half is-offset-one-quarter">
+                <h1 id="private_key_text" class="subtitle is-size-5-mobile is-size-4 position-zindex"></h1>
+            </div>
+        </div>
+        <!-- </div> -->
+    </div>
+    <button id="modalInfo" class="js-modal-trigger hide" data-target="modal-js-example">
+        Open JS example modal
+    </button>
+    
+    <div id="modal-js-example" class="modal">
+        <div class="modal-background"></div>
+      
+        <div class="modal-content">
+            <div class="box">
+                <h2 class="subtitle is-4">Info</h2>
+                <div id="info-text"></div>
+            <!-- Your content -->
+            </div>
+        </div>
+      
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <script src="js/particles.min.js">
+    </script> <!-- stats.js lib --> <script src="js/stats.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
